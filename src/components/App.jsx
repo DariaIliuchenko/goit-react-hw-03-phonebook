@@ -15,6 +15,25 @@ export default class App extends React.Component {
     filter: '',
   };
 
+  componentDidMount() {
+    const savesContacts = localStorage.getItem('contacts');
+      
+    if (savesContacts) {
+      this.setState({ contacts: JSON.parse(savesContacts) })
+    }
+  }
+
+  componentDidUpdate(prevState) {
+    const { contacts } = this.state;
+    if (contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(contacts))
+    }
+  }
+
+
+
+
+
   addContact = newContact => {
     const { contacts } = this.state;
     if (
